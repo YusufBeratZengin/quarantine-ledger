@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Discussions & Community Q&A
+    url: https://github.com/YusufBeratZengin/quarantine-ledger/discussions
+    about: Ask questions, share CI integration workflows, and discuss flaky test quarantine practices.
+  - name: Security Vulnerability Reporting
+    url: https://github.com/YusufBeratZengin/quarantine-ledger/security/advisories/new
+    about: Privately report security vulnerabilities.

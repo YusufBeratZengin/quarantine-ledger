@@ -1,0 +1,31 @@
+# Example quarantine ledger
+# See https://github.com/YusufBeratZengin/quarantine-ledger
+
+[policy]
+max_age_days = 30
+max_entries_per_team = 5
+max_total_entries = 20
+
+[[entries]]
+id = "test_login_timeout"
+owner_team = "auth-team"
+issue = "https://github.com/example/project/issues/123"
+reason = "Flaky due to network timing in CI"
+created = "2026-10-01"
+expires = "2026-11-01"
+
+[[entries]]
+id = "test_payment_retry"
+owner_team = "payments-team"
+issue = "https://github.com/example/project/issues/456"
+reason = "Intermittent failure on staging environment"
+created = "2026-10-15"
+expires = "2026-11-15"
+
+[[entries]]
+id = "test_expired_example"
+owner_team = "legacy-team"
+issue = "https://github.com/example/project/issues/789"
+reason = "This entry is expired to demonstrate expiry detection"
+created = "2026-09-01"
+expires = "2026-10-01"

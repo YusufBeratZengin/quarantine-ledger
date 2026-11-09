@@ -1,0 +1,111 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quarantine-ledger"
+version = "0.1.0"
+description = "Put owners, deadlines and budgets on quarantined tests."
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Yusuf Berat Zengin", email = "118852217+YusufBeratZengin@users.noreply.github.com"}
+]
+maintainers = [
+    {name = "Yusuf Berat Zengin", email = "118852217+YusufBeratZengin@users.noreply.github.com"}
+]
+keywords = [
+    "flaky-tests",
+    "test-quarantine",
+    "quality-gate",
+    "pytest",
+    "ci"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Quality Assurance",
+]
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4,<10.0",
+    "pytest-cov>=4.1,<8.0",
+    "ruff>=0.5,<1.0",
+    "mypy>=1.10,<2.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/YusufBeratZengin/quarantine-ledger"
+Repository = "https://github.com/YusufBeratZengin/quarantine-ledger"
+Issues = "https://github.com/YusufBeratZengin/quarantine-ledger/issues"
+
+[project.scripts]
+quarantine-ledger = "quarantine_ledger.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+preview = true
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "PTH", # flake8-use-pathlib
+    "T20", # flake8-print
+]
+ignore = [
+    "T201", # print is allowed in CLI
+    "B008", # function calls in default args (intentional for date parsing)
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+strict = true
+exclude = ["tests/fixtures/"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+# Make the src/ layout importable without an editable install, so CI, check.sh
+# and a bare `pytest` all import exactly the same package.
+pythonpath = ["src"]
+addopts = "--strict-markers --strict-config -v"
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks tests as integration tests",
+]
+
+[tool.coverage.run]
+source = ["quarantine_ledger"]
+branch = true
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
+precision = 2

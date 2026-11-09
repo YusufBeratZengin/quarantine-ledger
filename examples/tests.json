@@ -1,0 +1,6 @@
+[
+  "test_login_timeout",
+  "test_payment_retry",
+  "test_user_registration",
+  "test_password_reset"
+]
